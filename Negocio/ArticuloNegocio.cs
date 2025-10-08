@@ -52,9 +52,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-
-
         public List<Articulo> filtrar(string campo, string criterio, string filtro)
         {
             List<Articulo> lista = new List<Articulo>();
@@ -175,7 +172,6 @@ namespace Negocio
                 datos.cerrarConexion(); 
             }
         }
-
         public int agregar(Articulo nuevo)
         {
             AccesoDato datos = new AccesoDato();
@@ -202,7 +198,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
         public void eliminar(int id)
         {
             AccesoDato datos = new AccesoDato();
@@ -225,7 +220,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
         public void Modificar(Articulo articulo)
         {
             AccesoDato datos = new AccesoDato();
@@ -252,7 +246,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
         public void SincronizarImagenes(Articulo articulo, List<Imagen> imagenesEnMemoria)
         {
             ImagenNegocio imgNegocio = new ImagenNegocio();
@@ -279,6 +272,45 @@ namespace Negocio
             {
                 if (!imagenesEnMemoria.Any(i => i.id == imgDB.id))
                     imgNegocio.EliminarImagen(imgDB.id);
+            }
+        }
+        public bool MarcaExiste(int idMarca)
+        {
+            AccesoDato datos = new AccesoDato();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM MARCAS WHERE Id = @Id");
+                datos.setearParametro("@Id", idMarca);
+                int count = Convert.ToInt32(datos.ejecutarScalar());
+                return count > 0;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool CategoriaExiste(int idCategoria)
+        {
+            AccesoDato datos = new AccesoDato();
+            try
+            {
+                datos.setearConsulta("SELECT COUNT(*) FROM CATEGORIAS WHERE Id = @Id");
+                datos.setearParametro("@Id", idCategoria);
+                int count = Convert.ToInt32(datos.ejecutarScalar());
+                return count > 0;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
 
