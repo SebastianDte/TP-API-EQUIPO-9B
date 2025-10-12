@@ -506,5 +506,15 @@
             
             </summary>
         </member>
+        <member name="T:API.Controllers.ImagenController">
+            <summary>
+            Controlador para agregar Lista de Imagenes.
+            </summary>
+        </member>
+        <member name="M:API.Controllers.ImagenController.Post(System.Int32,System.Collections.Generic.List{API.DTOs.ImagenDto})">
+            <summary>
+            Da de alta una lista de imagenes en la Data Base.
+            </summary>
+        </member>
     </members>
 </doc>
