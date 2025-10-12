@@ -1,4 +1,5 @@
 ﻿using API.DTOs;
+using API.Validaciones;
 using Dominio;
 using Negocio;
 using System;
@@ -23,6 +24,10 @@ namespace API.Controllers
         {
             ImagenNegocio imagenes = new ImagenNegocio();
             int idArticulo = id;
+
+            var validacion = ValidadorArticulo.ValidarImagen(idArticulo, imagenesNuevas);
+            if (!validacion.EsValido)
+                return BadRequest(validacion.Error);
 
             foreach (var imgDto in imagenesNuevas)
             {

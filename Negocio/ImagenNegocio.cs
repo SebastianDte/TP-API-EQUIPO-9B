@@ -9,8 +9,6 @@ namespace Negocio
 {
     public class ImagenNegocio
     {
-        
-
         public List<Imagen> listarImagenes(int idArticulo)
         {
             AccesoDato datos = new AccesoDato();
