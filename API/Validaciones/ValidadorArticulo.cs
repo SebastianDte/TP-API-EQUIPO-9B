@@ -53,7 +53,6 @@ namespace API.Validaciones
         public static (bool EsValido, string Error) ValidarImagen(int idArticulo, List<ImagenDto> imagenesValidar)
         {
             ImagenNegocio negocio = new ImagenNegocio();
-            List<Imagen> imagenes = new List<Imagen>();
             List<Articulo> articulos = new List<Articulo>();
 
             articulos = new ArticuloNegocio().lista();
