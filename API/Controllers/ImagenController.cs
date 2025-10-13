@@ -37,7 +37,7 @@ namespace API.Controllers
 
                 imagenes.AgregarImagen(imagen);
             }
-            return Ok(new { mensaje = "Producto agregado correctamente.", id = idArticulo});
+            return Ok(new { mensaje = "Imagenes agregadas correctamente.", id = idArticulo});
         }
     }
 }

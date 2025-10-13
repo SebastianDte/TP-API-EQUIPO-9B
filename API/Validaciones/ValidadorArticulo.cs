@@ -54,9 +54,11 @@ namespace API.Validaciones
         {
             ImagenNegocio negocio = new ImagenNegocio();
             List<Imagen> imagenes = new List<Imagen>();
+            List<Articulo> articulos = new List<Articulo>();
 
-            imagenes = negocio.listarImagenes(idArticulo);
-            if (!imagenes.Exists(x => x.idArticulo == idArticulo))
+            articulos = new ArticuloNegocio().lista();
+
+            if (!articulos.Exists(x => x.id == idArticulo))
                 return (false, "No existe el articulo");
 
             if (imagenesValidar == null)
