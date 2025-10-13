@@ -1,4 +1,6 @@
 ﻿using API.DTOs;
+using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +48,24 @@ namespace API.Validaciones
 
 
             return (true, string.Empty); 
+        }
+
+        public static (bool EsValido, string Error) ValidarImagen(int idArticulo, List<ImagenDto> imagenesValidar)
+        {
+            ImagenNegocio negocio = new ImagenNegocio();
+            List<Imagen> imagenes = new List<Imagen>();
+            List<Articulo> articulos = new List<Articulo>();
+
+            articulos = new ArticuloNegocio().lista();
+
+            if (!articulos.Exists(x => x.id == idArticulo))
+                return (false, "No existe el articulo");
+
+            if (imagenesValidar == null)
+                return (false, "Las imagenes no pueden ser nulas.");
+
+
+            return (true, string.Empty);
         }
     }
 }
