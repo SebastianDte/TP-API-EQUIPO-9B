@@ -78,6 +78,38 @@ namespace API.Controllers
             return Ok(new { mensaje = "Producto agregado correctamente.", id = idGenerado });
         }
 
+        public IHttpActionResult Put(int id, [FromBody] ArticuloAltaDto Articulo)
+        {
+            var validacion = ValidadorArticulo.ValidarFormato(Articulo);
+            if (!validacion.EsValido)
+                return BadRequest(validacion.Error);
+
+            ArticuloNegocio negocio = new ArticuloNegocio();
+
+            if (!negocio.MarcaExiste(Articulo.IdMarca))
+                return BadRequest("El ID de la marca no existe.");
+            if (!negocio.CategoriaExiste(Articulo.IdCategoria))
+                return BadRequest("El ID de la categoría no existe.");
+
+            Articulo articulo = new Articulo
+            {
+                id = id,
+                codigo = Articulo.Codigo,
+                nombre = Articulo.Nombre,
+                descripcion = Articulo.Descripcion,
+                precio = Articulo.Precio,
+                categoria = new Categoria { id = Articulo.IdCategoria },
+                marca = new Marca { id = Articulo.IdMarca },
+                Imagenes = new List<Imagen>()
+            };
+
+
+            negocio.Modificar(articulo);
+            int idArt = articulo.id;
+
+            return Ok(new { mensaje = "Producto modificado correctamente.", id = idArt });
+        }
+
 
     }
 }
