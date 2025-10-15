@@ -25,9 +25,9 @@ namespace API.Controllers
         public IEnumerable<ArticuloDto> Get()
         {
             ArticuloNegocio articuloNeg = new ArticuloNegocio();
-            var articulos = articuloNeg.lista(); 
+            var articulos = articuloNeg.lista();
 
-            
+
             var articulosDto = articulos.Select(a => new ArticuloDto
             {
                 Codigo = a.codigo,
@@ -110,6 +110,59 @@ namespace API.Controllers
             return Ok(new { mensaje = "Producto modificado correctamente.", id = idArt });
         }
 
+        /// <summary>
+        /// Elimina de manera fisica un artículo en la base de datos.
+        /// </summary>
+        // DELETE:api/Articulo
+        [HttpDelete]
+        public HttpResponseMessage Delete(int Id)
+        {
+            var negocio = new ArticuloNegocio();
+            var lista = negocio.lista();
+
+            Articulo artEliminar = negocio.lista().Find(x => x.id == Id);
+
+            if( artEliminar == null)
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "El articulo no existe.");
+
+            negocio.eliminar(Id);
+
+            return Request.CreateResponse(HttpStatusCode.OK, "Articulo eliminado correctamente.");
+        }
+
+        /// <summary>
+        /// Busca el artículo mediante su ID en la base de datos.
+        /// </summary>
+        // GET:api/Articulo
+        //[HttpGET]
+        public HttpResponseMessage Get(int Id)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            List<Articulo> lista = negocio.lista();
+            Articulo articulo = lista.Find(x => x.id == Id);
+
+            if (articulo == null)
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "El articulo no existe.");
+
+            ArticuloDto articuloDto = new ArticuloDto();
+            articuloDto.Codigo = articulo.codigo;
+            articuloDto.Nombre = articulo.nombre;
+            articuloDto.Descripcion = articulo.descripcion;
+            articuloDto.Precio = articulo.precio;
+            articuloDto.PrecioFormateado = articulo.PrecioFormateado;
+            articuloDto.PrimeraImagenUrl = articulo.PrimeraImagenUrl;
+            articuloDto.Marca = new MarcaDto { Descripcion = articulo.marca.descripcion };
+            articuloDto.Categoria = new CategoriaDto { Descripcion = articulo.categoria.descripcion };
+            articuloDto.Imagenes = articulo.Imagenes.Select(i => new ImagenDto { ImageUrl = i.imageUrl })
+            .ToList();
+            
+            return Request.CreateResponse(HttpStatusCode.OK, articuloDto);
+
+        }
+
 
     }
+
 }
+
+

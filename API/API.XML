@@ -496,6 +496,16 @@
             Da de alta un nuevo artículo en la base de datos.
             </summary>
         </member>
+        <member name="M:API.Controllers.ArticuloController.Delete(System.Int32)">
+            <summary>
+            Elimina de manera fisica un artículo en la base de datos.
+            </summary>
+        </member>
+        <member name="M:API.Controllers.ArticuloController.Get(System.Int32)">
+            <summary>
+            Busca el artículo mediante su ID en la base de datos.
+            </summary>
+        </member>
         <member name="T:API.Controllers.HomeController">
             <summary>
             
